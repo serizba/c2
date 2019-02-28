@@ -110,10 +110,12 @@ while len(res) < len(imgs):
 		if len(posibles) > 0:
 			break
 
+
+
 	if len(posibles) == 0:
-		for i in range(len(imgs)):
-			if i in imgs and i not in res:
-				posibles = [imgs[i]]
+		for i, v in imgs.items():
+			if and i not in res:
+				posibles = [v]
 				break
 
 	if len(posibles) == 0:
