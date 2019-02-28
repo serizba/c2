@@ -36,7 +36,7 @@ dictags = {}
 #file = './input/b_lovely_landscapes.txt'
 #file = "./input/c_memorable_moments.txt"
 #file = './input/d_pet_pictures.txt'
-file = './input/e_shiny_selfies.txt'
+file = './input/newdaa'
 # with open(file) as f:
 #     N = f.readline()
 #     imgs = []
@@ -62,7 +62,7 @@ file = './input/e_shiny_selfies.txt'
 #     			dictags[t] = [i]
 
 with open(file) as f:
-    N = f.readline()
+    N = int(f.readline())
     imgs = {}
     res = []
     v = None
@@ -70,23 +70,23 @@ with open(file) as f:
     	t, _, *tags = line.split()
     	if t == 'V':
     		if v is None:
-    			v = (i, tags, -2)
+    			v = (i+N, tags, -2)
     			continue
     		else:
     			tags = np.union1d(v[1], tags)
-    			imgs[i] = (i, tags, v[0])
+    			imgs[i+N] = (i+N, tags, v[0])
     			v = None
     	else:
-    		imgs[i] = (i, tags, -1)
+    		imgs[i+N] = (i+N, tags, -1)
     	for t in tags:
     		if t in dictags:
-    			dictags[t].append(i)
+    			dictags[t].append(i+N)
     		else:
-    			dictags[t] = [i]
+    			dictags[t] = [i+N]
 
 res = {}
 last = None
-for i in range(len(imgs)):
+for i in imgs.keys():
 	if i in imgs:
 		res[i] = 1
 		last = i
@@ -100,8 +100,8 @@ while len(res) < len(imgs):
 		# for i in dictags[tag]:
 		# 	print(i, len(imgs))
 		# print('caca')
-		if len(dictags[tag]) > 200:
-			posibles = [imgs[i] for i in np.random.choice(dictags[tag], 200, False) if not i in res]
+		if len(dictags[tag]) > 500:
+			posibles = [imgs[i] for i in np.random.choice(dictags[tag], 500, False) if not i in res]
 		else:
 			posibles = [imgs[i] for i in dictags[tag] if not i in res]
 		#posibles = np.random.choice(np.array(posibles), 200, False)
@@ -114,7 +114,7 @@ while len(res) < len(imgs):
 
 	if len(posibles) == 0:
 		for i, v in imgs.items():
-			if and i not in res:
+			if i not in res:
 				posibles = [v]
 				break
 
@@ -124,9 +124,9 @@ while len(res) < len(imgs):
 	#if (len(res) / 100 == 0):
 	#print(len(imgs), len(posibles))
 
-	last = max(list(map(lambda x: (puntuation(imgs[last][1], x[1]), x[0]), posibles)), key=lambda x: x[0])
+	last = max(posibles, key=lambda x: puntuation(imgs[last][1], x[1]))[0]
 	#print(last)
-	last = last[1]
+	#last = last[1]
 	res[last] = 1
 
 
@@ -162,7 +162,7 @@ while len(res) < len(imgs):
 # Reconstruir
 
 
-with open("./output/resulte.txt","w+") as fw:
+with open("./output/resulteaa.txt","w+") as fw:
 	fw.write(str(len(res))+"\n")
 	for r in res.keys():
 		if (imgs[r][2] >= 0):
