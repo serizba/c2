@@ -8,8 +8,13 @@ with open("./b_lovely_landscapes.txt") as f:
     for i, line in enumerate(f):
     	t, _, *tags = line.split()
     	imgs.append((i, tags, t))
-    	res.append(i)
 
+
+actual = imgs[0]
+res[0] = 0
+while len(imgs) > 0:
+	posibles = [img for img in imgs if imgs[0] != actual[0]]  
+	list(lambda x: (puntuacion()))
 
     #     vlist.append(tuple(map(lambda x: int(x),line.split()+[i])))
     #     i=i+1
