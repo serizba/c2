@@ -35,15 +35,19 @@ with open(file_input) as f:
     	t, _, *img_tags = line.split()
     	if t == 'V':
     		if v is None:
+    			# Not yet paired
     			v = (i, img_tags, -2)
     			continue
     		else:
+    			# Paired
     			img_tags = np.union1d(v[1], img_tags)
     			imgs[i] = (i, img_tags, v[0])
     			v = None
     	else:
+    		# Horizontal image
     		imgs[i] = (i, img_tags, -1)
     	for t in img_tags:
+    		# Update dictionary of tags
     		tags[t].append(i)
 
 
