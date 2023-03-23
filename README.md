@@ -1,6 +1,6 @@
 # C2.py
 
-Code used to solve Hash Code contest from Google, Online Qualification Round. Total number of points obtained: 866.508
+Code used to solve Hash Code 2019 contest from Google, Online Qualification Round. Total number of points obtained: 866.508
 
 
 ### Execute
